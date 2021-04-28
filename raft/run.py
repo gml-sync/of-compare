@@ -30,6 +30,8 @@ def load_image(imfile):
 def demo(args):
     save_dir = Path('output')
     save_dir.mkdir(parents=True, exist_ok=True)
+    hard_dir = save_dir / 'hard'
+    hard_dir.mkdir(parents=True, exist_ok=True)
 
     model = torch.nn.DataParallel(RAFT(args))
     #load_model_txt(model, 'checkpoints/raft-things.pth')
@@ -75,6 +77,7 @@ def demo(args):
             path = save_dir
             filename1 = Path(imfile1).stem
             io.imsave(path / '{}.png'.format(filename1), occ)
+            io.imsave(hard_dir / '{}.png'.format(filename1), occ > 0.5)
             
             # f = flow.permute(1,2,0).numpy()
             # flow_img = flow_viz.flow_to_image(f)
