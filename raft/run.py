@@ -47,6 +47,7 @@ def demo(args):
                  glob.glob(os.path.join(args.path, '*.jpg'))
         
         images = sorted(images)
+        itr = 0
         for imfile1, imfile2 in zip(images[:-1], images[1:]): # Genius!
             print('Processing', imfile1, flush=True)
             image1 = load_image(imfile1)
@@ -95,7 +96,9 @@ def demo(args):
 
             # flow_low, flow_up = model(image1, image2, iters=20, test_mode=True)
             # viz(image1, flow_up)
-            exit()
+            if itr == 3:
+                exit(0)
+            itr += 1
 
 
 if __name__ == '__main__':
