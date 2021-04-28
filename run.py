@@ -1,6 +1,7 @@
 import os
 import subprocess
 from glob import glob
+import argparse
 
 import cv2
 import numpy as np
@@ -91,7 +92,20 @@ def split_frames(stereo=False):
     #     shutil.copy(filepath, 'pwc/images/in/' + filename)
     #     shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
 
-# Effective path must be '/'
-os.makedirs('frames', exist_ok=True)
-#frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
-split_frames()
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument('--stage', required=True, help="continue from stage: "
+    "0-start, 1-split")
+#parser.add_argument('--single', action='store_true', help="launch job only once")
+args = parser.parse_args()
+
+stage = int(args.stage)
+print(stage)
+
+if stage <= 0:
+    # Effective path must be '/'
+    os.makedirs('frames', exist_ok=True)
+    frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
+if stage <= 1:
+    split_frames()
