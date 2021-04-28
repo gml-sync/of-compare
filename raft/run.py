@@ -20,7 +20,7 @@ from skimage import io
 
 print('Im here!')
 
-DEVICE = 'cpu'
+DEVICE = 'gpu'
 
 def load_image(imfile):
     img = np.array(Image.open(imfile)).astype(np.uint8)
