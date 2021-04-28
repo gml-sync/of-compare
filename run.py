@@ -71,6 +71,7 @@ def split_frames(stereo=False):
         img = img[bounds[0]:bounds[1], bounds[2]:bounds[3]] # y1:y2, x1:x2
 
         #img = img[::2, ::2]
+        h, w = img.shape[:2]
         img = cv2.resize(img, (w//2, h//2))
 
         # if not(stereo and i % 2 == 1):
