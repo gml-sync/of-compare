@@ -74,7 +74,7 @@ def demo(args):
 
             path = save_dir
             print(path / '{}.png'.format(imfile1))
-            print(imfile1)
+            print(imfile1, flush=True)
             io.imsave(path / '{}.png'.format(imfile1), occ)
             
             # f = flow.permute(1,2,0).numpy()
