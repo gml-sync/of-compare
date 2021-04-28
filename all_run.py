@@ -96,7 +96,7 @@ def split_frames(stereo=False):
 
 def run():
     subp_bash('cd of-compare/raft; python run.py'
-        '--model=checkpoints/raft-things.pth --path=/content/frames')
+        ' --model=checkpoints/raft-things.pth --path=/content/frames')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--stage', required=True, help="continue from stage: "
