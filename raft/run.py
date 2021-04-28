@@ -46,7 +46,7 @@ def demo(args):
         
         images = sorted(images)
         for imfile1, imfile2 in zip(images[:-1], images[1:]): # Genius!
-            print('Processing', imfile1)
+            print('Processing', imfile1, flush=True)
             image1 = load_image(imfile1)
             image2 = load_image(imfile2)
 
@@ -73,9 +73,8 @@ def demo(args):
             # shape=(h, w) float32 in [0, 1]
 
             path = save_dir
-            print(path / '{}.png'.format(imfile1))
-            print(imfile1, flush=True)
-            io.imsave(path / '{}.png'.format(imfile1), occ)
+            filename1 = Path(imfile1).stem
+            io.imsave(path / '{}.png'.format(filename1), occ)
             
             # f = flow.permute(1,2,0).numpy()
             # flow_img = flow_viz.flow_to_image(f)
