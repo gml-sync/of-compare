@@ -80,6 +80,7 @@ def demo(args):
                 (occ * 255).astype(np.uint8))
             io.imsave(hard_dir / '{}.png'.format(filename1),
                 (occ > 0.5).astype(np.uint8))
+            print(occ.min(), occ.max())
             
             # f = flow.permute(1,2,0).numpy()
             # flow_img = flow_viz.flow_to_image(f)
@@ -94,6 +95,7 @@ def demo(args):
 
             # flow_low, flow_up = model(image1, image2, iters=20, test_mode=True)
             # viz(image1, flow_up)
+            exit()
 
 
 if __name__ == '__main__':
