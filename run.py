@@ -1,7 +1,9 @@
 import os
 import subprocess
+from glob import glob
 
 import cv2
+import numpy as np
 
 
 def subp_run_str(cmd, output=True):
@@ -27,6 +29,7 @@ def frame_ffmpeg_split(video_path, output_folder):
 
 
 def split_frames(stereo=False):
+    print('Start frame preprocessing')
     max_area = 1240 * 436 # A Sintel-sized frame
 
     # Disparity. Move from frames_l and frames_r to frames
