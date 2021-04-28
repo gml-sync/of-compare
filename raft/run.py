@@ -26,8 +26,8 @@ def load_image(imfile):
     return img[None].to(DEVICE)
 
 def demo(args):
-    save_dir = 'output'
-    os.makedirs(save_dir, exist_ok=True)
+    save_dir = Path('output')
+    save_dir.mkdir(parents=True, exist_ok=True)
 
     model = torch.nn.DataParallel(RAFT(args))
     #load_model_txt(model, 'checkpoints/raft-things.pth')
