@@ -108,7 +108,7 @@ stage = int(args.stage)
 if stage <= 0:
     # Effective path must be '/'
     os.makedirs('frames', exist_ok=True)
-    frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
+    frame_ffmpeg_split('vids/11_l0.mkv', 'frames')
 if stage <= 1:
     split_frames()
 if stage <= 2:
