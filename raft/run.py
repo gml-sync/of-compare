@@ -70,7 +70,7 @@ def demo(args):
             occ = occ[0].numpy()
             # shape=(h, w) float32 in [0, 1]
 
-            
+            path = save_dir
             io.imsave(path / '{:04d}.png'.format(imfile1), occ)
             
             # f = flow.permute(1,2,0).numpy()
