@@ -26,10 +26,6 @@ def frame_ffmpeg_split(video_path, output_folder):
             ' -qscale:v 2 ' + output_folder + '/frame_%04d.jpg'])
 
 
-# Effective path must be '/'
-os.makedirs('frames', exist_ok=True)
-frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
-
 def split_frames(stereo=False):
     max_area = 1240 * 436 # A Sintel-sized frame
 
@@ -90,3 +86,8 @@ def split_frames(stereo=False):
     #     #shutil.copy(filepath, 'vcn/images/in/' + filename)
     #     shutil.copy(filepath, 'pwc/images/in/' + filename)
     #     shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
+
+# Effective path must be '/'
+os.makedirs('frames', exist_ok=True)
+frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
+split_frames()
