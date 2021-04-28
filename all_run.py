@@ -94,13 +94,14 @@ def split_frames(stereo=False):
     #     shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
 
 
+def run():
+    subp_bash('cd of-compare/raft; python run.py')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--stage', required=True, help="continue from stage: "
-    "0-start, 1-split")
+    "0-start, 1-split, 2-run model")
 #parser.add_argument('--single', action='store_true', help="launch job only once")
 args = parser.parse_args()
-
 stage = int(args.stage)
 
 if stage <= 0:
@@ -109,3 +110,5 @@ if stage <= 0:
     frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
 if stage <= 1:
     split_frames()
+if stage <= 2:
+    run()
