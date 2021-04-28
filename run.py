@@ -66,7 +66,7 @@ def split_frames(stereo=False):
     params = []
     for i, filepath in enumerate(sorted(glob('frames/*'))):
         print(filepath)
-        img = cv2.imread(filepath)
+        img = cv2.imread(filepath).astype(float) / 255
         print(img.min(), img.max(), img.shape, img.dtype)
         img = img[bounds[0]:bounds[1], bounds[2]:bounds[3]] # y1:y2, x1:x2
 
