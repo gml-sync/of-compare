@@ -73,6 +73,7 @@ def demo(args):
             # shape=(h, w) float32 in [0, 1]
 
             path = save_dir
+            print(path / '{}.png'.format(imfile1))
             io.imsave(path / '{}.png'.format(imfile1), occ)
             
             # f = flow.permute(1,2,0).numpy()
