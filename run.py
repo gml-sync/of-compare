@@ -4,6 +4,7 @@ from glob import glob
 
 import cv2
 import numpy as np
+import skimage
 
 
 def subp_run_str(cmd, output=True):
@@ -65,7 +66,8 @@ def split_frames(stereo=False):
     params = []
     for i, filepath in enumerate(sorted(glob('frames/*'))):
         print(filepath)
-        img = skimage.img_as_float(cv2.imread(filepath))
+        img = cv2.imread(filepath)
+        print(img.min(), img.max(), img.shape, img.dtype)
         img = img[bounds[0]:bounds[1], bounds[2]:bounds[3]] # y1:y2, x1:x2
 
         #img = img[::2, ::2]
@@ -92,5 +94,5 @@ def split_frames(stereo=False):
 
 # Effective path must be '/'
 os.makedirs('frames', exist_ok=True)
-frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
+#frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
 split_frames()
