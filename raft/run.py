@@ -76,8 +76,10 @@ def demo(args):
 
             path = save_dir
             filename1 = Path(imfile1).stem
-            io.imsave(path / '{}.png'.format(filename1), occ)
-            io.imsave(hard_dir / '{}.png'.format(filename1), occ > 0.5)
+            io.imsave(path / '{}.png'.format(filename1),
+                (occ * 255).astype(np.uint8))
+            io.imsave(hard_dir / '{}.png'.format(filename1),
+                (occ > 0.5).astype(np.uint8))
             
             # f = flow.permute(1,2,0).numpy()
             # flow_img = flow_viz.flow_to_image(f)
