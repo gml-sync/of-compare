@@ -24,5 +24,5 @@ def frame_ffmpeg_split(video_path, output_folder):
 
 
 # Effective path must be '/'
-os.makedirs('frames')
+os.makedirs('frames', exist_ok=True)
 frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
