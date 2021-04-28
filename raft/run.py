@@ -36,6 +36,7 @@ def demo(args):
     model = model.module
     model.to(DEVICE)
     model.eval()
+    print('Model loaded')
 
     with torch.no_grad():
         images = glob.glob(os.path.join(args.path, '*.png')) + \
@@ -43,6 +44,7 @@ def demo(args):
         
         images = sorted(images)
         for imfile1, imfile2 in zip(images[:-1], images[1:]): # Genius!
+            print('Processing', imfile1)
             image1 = load_image(imfile1)
             image2 = load_image(imfile2)
 
@@ -95,4 +97,5 @@ if __name__ == '__main__':
     parser.add_argument('--alternate_corr', action='store_true', help='use efficent correlation implementation')
     args = parser.parse_args()
 
+    print('Starting RAFT')
     demo(args)
