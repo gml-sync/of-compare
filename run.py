@@ -67,7 +67,7 @@ def split_frames(stereo=False):
     params = []
     for i, filepath in enumerate(sorted(glob('frames/*'))):
         print(filepath)
-        img = cv2.imread(filepath).astype(float) / 255
+        img = cv2.imread(filepath)
         img = img[bounds[0]:bounds[1], bounds[2]:bounds[3]] # y1:y2, x1:x2
 
         #img = img[::2, ::2]
@@ -101,7 +101,6 @@ parser.add_argument('--stage', required=True, help="continue from stage: "
 args = parser.parse_args()
 
 stage = int(args.stage)
-print(stage)
 
 if stage <= 0:
     # Effective path must be '/'
