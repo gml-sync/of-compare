@@ -96,13 +96,16 @@ def split_frames(stereo=False):
 
 
 def run():
-    # subp_bash('cd of-compare/raft; python run.py'
-    #     ' --model=checkpoints/raft-things.pth --path=/content/frames')
-
+    subp_bash('cd of-compare/raft; python run.py'
+        ' --model=checkpoints/raft-things.pth --path=/content/frames')
     subp_bash('cd of-compare/irr; python run.py')
+
     for i, filepath in enumerate(sorted(glob('of-compare/irr/saved_check_point/pwcnet/eval_temp/IRR_PWC/img/frames/in/*_occ.png'))):
         filename = filepath.split('/')[-1]
         shutil.move(filepath, 'out/irr/' + filename)
+    # for i, filepath in enumerate(sorted(glob('of-compare/irr/saved_check_point/pwcnet/eval_temp/IRR_PWC/img/frames/in/*_occ.png'))):
+    #     filename = filepath.split('/')[-1]
+    #     shutil.move(filepath, 'out/irr/' + filename)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--stage', required=True, help="continue from stage: "
