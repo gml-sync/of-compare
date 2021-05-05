@@ -98,8 +98,6 @@ def split_frames(stereo=False):
 def run():
     # subp_bash('cd of-compare/raft; python run.py'
     #     ' --model=checkpoints/raft-things.pth --path=/content/frames')
-    subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/in/*')
-    subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/out/*')
 
     subp_bash('cd of-compare/irr; python run.py')
 
@@ -115,6 +113,9 @@ if stage <= 0:
     os.makedirs('frames', exist_ok=True)
     os.makedirs('sintelall/MPI-Sintel-complete/training/frames/in', exist_ok=True)
     os.makedirs('sintelall/MPI-Sintel-complete/training/frames/out', exist_ok=True)
+
+    subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/in/*')
+    subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/out/*')
 
     frame_ffmpeg_split('vids/11_l0.mkv', 'frames')
 if stage <= 1:
