@@ -137,7 +137,7 @@ def run():
 
     raft_images = sorted(glob('out/raft/*.png'))
     irr_images = sorted(glob('out/irr/*.png'))
-    for i in range(len(raft_images)):
+    for i in range(len(irr_images)):
         filename = irr_images[i]
         img = io.imread(filename)
         res = load_and_caption(img, 'RAFT')
