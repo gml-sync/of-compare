@@ -147,7 +147,7 @@ def run():
     for i in range(len(raft_images)):
         img = np.zeros((h, w * 2, 3))
         raft = io.imread(raft_images[i])
-        irr = io.imread(raft_images[i])
+        irr = io.imread(irr_images[i])
 
         img[:h, :w, :] = load_and_caption(raft, 'RAFT')
         img[:h, w:, :] = load_and_caption(irr, 'IRR')
