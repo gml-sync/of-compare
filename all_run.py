@@ -100,6 +100,9 @@ def run():
     #     ' --model=checkpoints/raft-things.pth --path=/content/frames')
 
     subp_bash('cd of-compare/irr; python run.py')
+    for i, filepath in enumerate(sorted(glob('of-compare/irr/saved_check_point/pwcnet/eval_temp/IRR_PWC/img/frames/in/*_occ.png'))):
+        filename = filepath.split('/')[-1]
+        shutil.move(filepath, 'out/irr/' + filename)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--stage', required=True, help="continue from stage: "
@@ -111,6 +114,10 @@ stage = int(args.stage)
 if stage <= 0:
     # Effective path must be '/'
     os.makedirs('frames', exist_ok=True)
+    os.makedirs('out', exist_ok=True)
+    subp_bash('rm -rf out/*')
+    os.makedirs('out/raft', exist_ok=True)
+    os.makedirs('out/irr', exist_ok=True)
     os.makedirs('sintelall/MPI-Sintel-complete/training/frames/in', exist_ok=True)
     os.makedirs('sintelall/MPI-Sintel-complete/training/frames/out', exist_ok=True)
 
