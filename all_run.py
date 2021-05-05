@@ -63,6 +63,11 @@ def split_frames(stereo=False):
     #             os.remove(filepath)
     #             continue
 
+    for i, filepath in enumerate(sorted(glob('frames/*'))):
+        if i > 10:
+            os.remove(filepath)
+            continue
+
     img_list = sorted(glob('frames/*'))
     #bounds = find_black_frame(cv2.imread(img_list[0]))
     h, w = cv2.imread(img_list[0]).shape[:2]
