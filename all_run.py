@@ -119,8 +119,8 @@ def load_and_caption(in_image, text):
 
 
 def run():
-    subp_bash('cd of-compare/raft; python run.py'
-        ' --model=checkpoints/raft-things.pth --path=/content/frames')
+    # subp_bash('cd of-compare/raft; python run.py'
+    #     ' --model=checkpoints/raft-things.pth --path=/content/frames')
     subp_bash('cd of-compare/irr; python run.py')
 
     for i, filepath in enumerate(sorted(glob('of-compare/irr/saved_check_point/pwcnet/eval_temp/IRR_PWC/img/frames/in/*_occ.png'))):
@@ -133,7 +133,7 @@ def run():
     raft_images = sorted(glob('out/raft/*.png'))
     irr_images = sorted(glob('out/irr/*.png'))
     for i in range(len(raft_images)):
-        filename = raft_images[i]
+        filename = irr_images[i]
         img = io.imread(filename)
         res = load_and_caption(img, 'RAFT')
         io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', res, quality=100)
