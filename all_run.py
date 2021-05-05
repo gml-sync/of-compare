@@ -7,6 +7,9 @@ import argparse
 import cv2
 import numpy as np
 import skimage
+from PIL import Image, ImageFont, ImageDraw
+from PIL import ImageFilter
+from skimage import io
 
 
 def subp_run_str(cmd, output=True):
@@ -95,6 +98,26 @@ def split_frames(stereo=False):
         shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
 
 
+# Join outputs of neuronets
+def load_and_caption(in_image, text):
+    # Returns RGB image
+
+    if len(in_image.shape) > 2:
+        if in_image.shape[2] == 4:
+            in_image = in_image[:, :, :3]
+    else:
+        in_image = in_image[:, :, np.newaxis]
+        in_image = np.repeat(in_image, 3, 2)
+
+    pil_img = Image.fromarray(in_image.astype(np.uint8))
+    font = ImageFont.truetype("/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf", 40)
+    draw = ImageDraw.Draw(pil_img)
+    draw.text((0, 0), text, (255, 0, 0), font=font)
+    in_image = np.array(pil_img)
+
+    return in_image
+
+
 def run():
     subp_bash('cd of-compare/raft; python run.py'
         ' --model=checkpoints/raft-things.pth --path=/content/frames')
@@ -106,6 +129,16 @@ def run():
     for i, filepath in enumerate(sorted(glob('of-compare/raft/output/hard/*.png'))):
         filename = filepath.split('/')[-1]
         shutil.move(filepath, 'out/raft/' + filename)
+
+    raft_images = sorted(glob('out/raft/*.png'))
+    irr_images = sorted(glob('out/irr/*.png'))
+    for i in range(len(raft_images)):
+        filename = raft_images[i]
+        img = io.imread(filename)
+        res = load_and_caption(img, 'RAFT')
+        io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', res, quality=100)
+
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--stage', required=True, help="continue from stage: "
@@ -121,6 +154,7 @@ if stage <= 0:
     subp_bash('rm -rf out/*')
     os.makedirs('out/raft', exist_ok=True)
     os.makedirs('out/irr', exist_ok=True)
+    os.makedirs('out/join', exist_ok=True)
 
     os.makedirs('sintelall/MPI-Sintel-complete/training/frames/in', exist_ok=True)
     os.makedirs('sintelall/MPI-Sintel-complete/training/frames/out', exist_ok=True)
