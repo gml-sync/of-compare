@@ -170,6 +170,7 @@ stage = int(args.stage)
 if stage <= 0:
     # Effective path must be '/'
     os.makedirs('frames', exist_ok=True)
+    subp_bash('rm -rf frames/*')
     os.makedirs('out', exist_ok=True)
     subp_bash('rm -rf out/*')
     os.makedirs('out/raft', exist_ok=True)
