@@ -135,7 +135,7 @@ def run():
         filename = filepath.split('/')[-1]
         shutil.move(filepath, 'out/raft/' + filename)
 
-    raft_images = sorted(glob('out/raft/*.png'))
+    raft_images = sorted(glob('out09_4/raft/*.png'))
     irr_images = sorted(glob('out/irr/*.png'))
     for i in range(len(raft_images)):
         filename = raft_images[i]
@@ -143,10 +143,18 @@ def run():
         res = load_and_caption(img, 'RAFT')
         io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', res, quality=100)
 
-    # for i in range(len(raft_images)):
-    #     h, w, _c = io.imread(glob('frames/*')[0]).shape
-    #     raft = io.imread(raft_images[i])
-    #     irr = io.imread(raft_images[i])
+    h, w, _c = io.imread(glob('frames/*')[0]).shape
+    for i in range(len(raft_images)):
+        img = np.zeros((h, w * 2, 3))
+        raft = io.imread(raft_images[i])
+        irr = io.imread(raft_images[i])
+
+        img[:h, :w, :] = load_and_caption(raft, 'RAFT')
+        io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', res, quality=100)
+        #res_canvas = [0] * 4
+        #res_canvas[1] = img[h:h * 2, :w, :]
+        #res_canvas[2] = img[h:h * 2, w:w * 2, :]
+        #res_canvas[3] = img[:h, w:w * 2, :]
 
 
 
@@ -172,7 +180,7 @@ if stage <= 0:
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/in/*')
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/out/*')
 
-    frame_ffmpeg_split('vids/13_l1.mkv', 'frames')
+    frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
 if stage <= 1:
     split_frames()
 if stage <= 2:
