@@ -1,5 +1,6 @@
 import os
 import subprocess
+import shutil
 from glob import glob
 import argparse
 
@@ -103,7 +104,7 @@ def run():
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--stage', required=True, help="continue from stage: "
-    "0-start, 1-split, 2-run model")
+    "0-ffmpeg split, 1-preprocess frames, 2-run model")
 #parser.add_argument('--single', action='store_true', help="launch job only once")
 args = parser.parse_args()
 stage = int(args.stage)
