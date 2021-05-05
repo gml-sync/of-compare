@@ -143,6 +143,12 @@ def run():
         res = load_and_caption(img, 'RAFT')
         io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', res, quality=100)
 
+    # for i in range(len(raft_images)):
+    #     h, w, _c = io.imread(glob('frames/*')[0]).shape
+    #     raft = io.imread(raft_images[i])
+    #     irr = io.imread(raft_images[i])
+
+
 
 
 parser = argparse.ArgumentParser()
@@ -166,7 +172,7 @@ if stage <= 0:
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/in/*')
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/out/*')
 
-    frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
+    frame_ffmpeg_split('vids/13_l1.mkv', 'frames')
 if stage <= 1:
     split_frames()
 if stage <= 2:
