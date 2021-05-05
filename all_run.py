@@ -135,7 +135,7 @@ def run():
         filename = filepath.split('/')[-1]
         shutil.move(filepath, 'out/raft/' + filename)
 
-    raft_images = sorted(glob('out09_4/raft/*.png'))
+    raft_images = sorted(glob('out11_0/raft/*.png'))
     irr_images = sorted(glob('out/irr/*.png'))
     for i in range(len(raft_images)):
         filename = raft_images[i]
@@ -181,7 +181,7 @@ if stage <= 0:
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/in/*')
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/out/*')
 
-    frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
+    frame_ffmpeg_split('vids/11_l0.mkv', 'frames')
 if stage <= 1:
     split_frames()
 if stage <= 2:
