@@ -150,7 +150,8 @@ def run():
         irr = io.imread(raft_images[i])
 
         img[:h, :w, :] = load_and_caption(raft, 'RAFT')
-        io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', res, quality=100)
+        img[:h, w:, :] = load_and_caption(irr, 'IRR')
+        io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', img, quality=100)
         #res_canvas = [0] * 4
         #res_canvas[1] = img[h:h * 2, :w, :]
         #res_canvas[2] = img[h:h * 2, w:w * 2, :]
