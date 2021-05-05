@@ -103,9 +103,9 @@ def run():
     for i, filepath in enumerate(sorted(glob('of-compare/irr/saved_check_point/pwcnet/eval_temp/IRR_PWC/img/frames/in/*_occ.png'))):
         filename = filepath.split('/')[-1]
         shutil.move(filepath, 'out/irr/' + filename)
-    # for i, filepath in enumerate(sorted(glob('of-compare/irr/saved_check_point/pwcnet/eval_temp/IRR_PWC/img/frames/in/*_occ.png'))):
-    #     filename = filepath.split('/')[-1]
-    #     shutil.move(filepath, 'out/irr/' + filename)
+    for i, filepath in enumerate(sorted(glob('of-compare/raft/output/hard/*.png'))):
+        filename = filepath.split('/')[-1]
+        shutil.move(filepath, 'out/raft/' + filename)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--stage', required=True, help="continue from stage: "
@@ -121,9 +121,9 @@ if stage <= 0:
     subp_bash('rm -rf out/*')
     os.makedirs('out/raft', exist_ok=True)
     os.makedirs('out/irr', exist_ok=True)
+
     os.makedirs('sintelall/MPI-Sintel-complete/training/frames/in', exist_ok=True)
     os.makedirs('sintelall/MPI-Sintel-complete/training/frames/out', exist_ok=True)
-
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/in/*')
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/out/*')
 
