@@ -87,16 +87,19 @@ def split_frames(stereo=False):
         #     imsave(filepath, img)
 
     # Copy frames into neuronets
-    # for i, filepath in enumerate(sorted(glob('frames/*'))):
-    #     filename = filepath.split('/')[-1]
-    #     #shutil.copy(filepath, 'vcn/images/in/' + filename)
-    #     shutil.copy(filepath, 'pwc/images/in/' + filename)
-    #     shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
+    for i, filepath in enumerate(sorted(glob('frames/*'))):
+        filename = filepath.split('/')[-1]
+        #shutil.copy(filepath, 'vcn/images/in/' + filename)
+        #shutil.copy(filepath, 'pwc/images/in/' + filename)
+        shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
 
 
 def run():
-    subp_bash('cd of-compare/raft; python run.py'
-        ' --model=checkpoints/raft-things.pth --path=/content/frames')
+    # subp_bash('cd of-compare/raft; python run.py'
+    #     ' --model=checkpoints/raft-things.pth --path=/content/frames')
+    os.makedirs('sintelall/MPI-Sintel-complete/training/frames/in')
+    os.makedirs('sintelall/MPI-Sintel-complete/training/frames/out')
+    subp_bash('cd of-compare/irr; python run.py')
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--stage', required=True, help="continue from stage: "
