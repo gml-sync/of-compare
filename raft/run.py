@@ -81,7 +81,7 @@ def demo(args):
                 (occ*255).astype(np.uint8))
             #print(filename1, occ.min(), occ.max())
             io.imsave(hard_dir / '{}.png'.format(filename1),
-                ((occ>0.5)*255).astype(np.uint8))
+                ((occ>0.8)*255).astype(np.uint8))
             
             # f = flow.permute(1,2,0).numpy()
             # flow_img = flow_viz.flow_to_image(f)
