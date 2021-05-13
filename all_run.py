@@ -186,8 +186,8 @@ if stage <= 0:
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/in/*')
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/out/*')
 
-    frame_ffmpeg_split('vids/18_l1.mkv', 'frames')
+    frame_ffmpeg_split('vids/13_l1.mkv', 'frames')
 if stage <= 1:
     split_frames()
-if stage <= 2:
+if stage <= 2 and 0:
     run()
