@@ -189,5 +189,5 @@ if stage <= 0:
     frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
 if stage <= 1:
     split_frames()
-if stage <= 2 and 0:
+if stage <= 2:
     run()
