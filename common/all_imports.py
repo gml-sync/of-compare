@@ -8,7 +8,7 @@ import subprocess
 import shutil
 from shutil import copyfile
 import random
-from time import time, clock
+from time import time
 from datetime import datetime
 
 import numpy as np

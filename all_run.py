@@ -135,27 +135,30 @@ def run():
         filename = filepath.split('/')[-1]
         shutil.move(filepath, 'out/raft/' + filename)
 
-    raft_images = sorted(glob('out13_1/raft/*.png'))
-    irr_images = sorted(glob('out/irr/*.png'))
-    for i in range(len(raft_images)):
-        filename = raft_images[i]
-        img = io.imread(filename)
-        res = load_and_caption(img, 'RAFT')
-        io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', res, quality=100)
+    if 0:
+        raft_images = sorted(glob('out13_1/raft/*.png'))
+        irr_images = sorted(glob('out/irr/*.png'))
+        for i in range(len(raft_images)):
+            filename = raft_images[i]
+            img = io.imread(filename)
+            res = load_and_caption(img, 'RAFT')
+            io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', res, quality=100)
 
-    h, w, _c = io.imread(glob('frames/*')[0]).shape
-    for i in range(len(raft_images)):
-        img = np.zeros((h, w * 2, 3))
-        raft = io.imread(raft_images[i])
-        irr = io.imread(irr_images[i])
+        h, w, _c = io.imread(glob('frames/*')[0]).shape
+        for i in range(len(raft_images)):
+            img = np.zeros((h, w * 2, 3))
+            raft = io.imread(raft_images[i])
+            irr = io.imread(irr_images[i])
 
-        img[:h, :w, :] = load_and_caption(raft, 'RAFT')
-        img[:h, w:, :] = load_and_caption(irr, 'IRR')
-        io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', img, quality=100)
-        #res_canvas = [0] * 4
-        #res_canvas[1] = img[h:h * 2, :w, :]
-        #res_canvas[2] = img[h:h * 2, w:w * 2, :]
-        #res_canvas[3] = img[:h, w:w * 2, :]
+            img[:h, :w, :] = load_and_caption(raft, 'RAFT')
+            img[:h, w:, :] = load_and_caption(irr, 'IRR')
+            io.imsave('out/join/frame_' + str(i).zfill(4) + '.jpg', img, quality=100)
+
+            if 0:
+                res_canvas = [0] * 4
+                res_canvas[1] = img[h:h * 2, :w, :]
+                res_canvas[2] = img[h:h * 2, w:w * 2, :]
+                res_canvas[3] = img[:h, w:w * 2, :]
 
 
 
