@@ -99,13 +99,16 @@ def split_frames(stereo=False):
         102, 103, 104, 105 , 25, 26, 27, 28, 125, 126, 127, 128, 129, 130, 131, 132, 104, 105, 106, 107, 111, 112, 113, 114
     ]
 
+    for i, filepath in enumerate(sorted(glob('frames/*'))):
+        if not i in indexes:
+             os.remove(filepath)
+
     # Copy frames into neuronets
     for i, filepath in enumerate(sorted(glob('frames/*'))):
-        if i in indexes:
-            filename = filepath.split('/')[-1]
-            #shutil.copy(filepath, 'vcn/images/in/' + filename)
-            #shutil.copy(filepath, 'pwc/images/in/' + filename)
-            shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
+        filename = filepath.split('/')[-1]
+        #shutil.copy(filepath, 'vcn/images/in/' + filename)
+        #shutil.copy(filepath, 'pwc/images/in/' + filename)
+        shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
 
 
 # Join outputs of neuronets
