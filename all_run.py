@@ -95,12 +95,17 @@ def split_frames(stereo=False):
         # else:
         #     imsave(filepath, img)
 
+    indexes = [
+        102, 103, 104, 105 , 25, 26, 27, 28, 125, 126, 127, 128, 129, 130, 131, 132, 104, 105, 106, 107, 111, 112, 113, 114
+    ]
+
     # Copy frames into neuronets
     for i, filepath in enumerate(sorted(glob('frames/*'))):
-        filename = filepath.split('/')[-1]
-        #shutil.copy(filepath, 'vcn/images/in/' + filename)
-        #shutil.copy(filepath, 'pwc/images/in/' + filename)
-        shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
+        if i in indexes:
+            filename = filepath.split('/')[-1]
+            #shutil.copy(filepath, 'vcn/images/in/' + filename)
+            #shutil.copy(filepath, 'pwc/images/in/' + filename)
+            shutil.copy(filepath, 'sintelall/MPI-Sintel-complete/training/frames/in/' + filename)
 
 
 # Join outputs of neuronets
@@ -186,7 +191,7 @@ if stage <= 0:
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/in/*')
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/out/*')
 
-    frame_ffmpeg_split('vids/18_l1.mkv', 'frames')
+    frame_ffmpeg_split('vids/09_l4.mkv', 'frames')
 if stage <= 1:
     split_frames()
 if stage <= 2:
