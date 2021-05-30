@@ -68,14 +68,18 @@ def split_frames(stereo=False):
     #         os.remove(filepath)
     #         continue
 
-    img_list = sorted(glob('frames/*'))
+    img_list = sorted(glob('frames1/*'))
     #bounds = find_black_frame(cv2.imread(img_list[0]))
     h, w = cv2.imread(img_list[0]).shape[:2]
     bounds = [140, 940, 0, w] # y1:y2, x1:x2
 
     params = []
-    for i, filepath in enumerate(sorted(glob('frames/*'))):
-        print(filepath)
+    #for i, filepath in enumerate(sorted(glob('frames/*'))):
+    for i, filename in enumerate(['frame_0084.jpg']):
+        filepath = 'frames1/' + filename
+        dest = 'frames/frame_0084.jpg'
+        dest2 = 'frames/frame_0087.jpg'
+
         img = cv2.imread(filepath)
         img = img[bounds[0]:bounds[1], bounds[2]:bounds[3]] # y1:y2, x1:x2
 
@@ -88,20 +92,36 @@ def split_frames(stereo=False):
         # if i == 0:
         #     print('Distortion params after func:', params)
 
-        cv2.imwrite(filepath, img, [cv2.IMWRITE_JPEG_QUALITY, 100])
+        cv2.imwrite(dest, img, [cv2.IMWRITE_JPEG_QUALITY, 100])
+        cv2.imwrite(dest2, img, [cv2.IMWRITE_JPEG_QUALITY, 100])
         # print(Path(filepath).suffix)
         # if Path(filepath).suffix == '.jpg':
         #     imsave(filepath, img, quality=100)
         # else:
         #     imsave(filepath, img)
 
+
+        filepath = 'frames2/' + filename
+        dest = 'frames/frame_0085.jpg'
+        dest2 = 'frames/frame_0086.jpg'
+
+        img = cv2.imread(filepath)
+        img = img[bounds[0]:bounds[1], bounds[2]:bounds[3]] # y1:y2, x1:x2
+
+        #img = img[::2, ::2]
+        h, w = img.shape[:2]
+        img = cv2.resize(img, (w//2, h//2))
+
+        cv2.imwrite(dest, img, [cv2.IMWRITE_JPEG_QUALITY, 100])
+        cv2.imwrite(dest2, img, [cv2.IMWRITE_JPEG_QUALITY, 100])
+
     indexes = [
         102, 103, 104, 105 , 25, 26, 27, 28, 125, 126, 127, 128, 129, 130, 131, 132, 104, 105, 106, 107, 111, 112, 113, 114
     ]
 
-    for i, filepath in enumerate(sorted(glob('frames/*'))):
-        if not i in indexes:
-             os.remove(filepath)
+    # for i, filepath in enumerate(sorted(glob('frames/*'))):
+    #     if not i in indexes:
+    #          os.remove(filepath)
 
     # Copy frames into neuronets
     for i, filepath in enumerate(sorted(glob('frames/*'))):
@@ -132,9 +152,8 @@ def load_and_caption(in_image, text):
 
 
 def run():
-    for i in range(100000):
-        subp_bash('cd of-compare/raft; python run.py'
-            ' --model=checkpoints/raft-things.pth --path=/content/frames')
+    subp_bash('cd of-compare/raft; python run.py'
+        ' --model=checkpoints/raft-things.pth --path=/content/frames')
     # subp_bash('cd of-compare/irr; python run.py')
 
     for i, filepath in enumerate(sorted(glob('of-compare/irr/saved_check_point/pwcnet/eval_temp/IRR_PWC/img/frames/in/*_occ.png'))):
@@ -182,7 +201,11 @@ stage = int(args.stage)
 if stage <= 0:
     # Effective path must be '/'
     os.makedirs('frames', exist_ok=True)
+    os.makedirs('frames1', exist_ok=True)
+    os.makedirs('frames2', exist_ok=True)
     subp_bash('rm -rf frames/*')
+    subp_bash('rm -rf frames1/*')
+    subp_bash('rm -rf frames2/*')
 
     os.makedirs('out', exist_ok=True)
     subp_bash('rm -rf out/*')
@@ -195,7 +218,8 @@ if stage <= 0:
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/in/*')
     subp_bash('rm -rf sintelall/MPI-Sintel-complete/training/frames/out/*')
 
-    frame_ffmpeg_split('vids/18_l1.mkv', 'frames')
+    frame_ffmpeg_split('vids/18_l1.mkv', 'frames1')
+    frame_ffmpeg_split('vids/18_r1.mkv', 'frames2')
 if stage <= 1:
     split_frames()
 if stage <= 2:
